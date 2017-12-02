@@ -1,2 +1,2 @@
 # LD40
-Ludum Date 40
+Ludum Dare 40
