@@ -3,10 +3,13 @@ using Assets.Enums;
 using System.Collections.Generic;
 using Assets.Interfaces;
 using Assets.Minerals;
+using Assets.People;
+using UnityEngine.UI;
 
 public class TimeProcessor : MonoBehaviour
 {
-
+    private Person person;
+   
 
     // Use this for initialization
     void Start()
@@ -22,7 +25,7 @@ public class TimeProcessor : MonoBehaviour
             Lead.Instance.Timer += Time.deltaTime;
             if (Lead.Instance.Timer > Lead.Instance.WaitTime)
             {
-                Lead.Instance.AddToCirculation(1);
+                Lead.Instance.AddToCirculation(Lead.Instance.NextWeight.Weight);
                 Lead.Instance.Timer = 0f;
                 Lead.Instance.Weighing = false;
             }
@@ -32,24 +35,44 @@ public class TimeProcessor : MonoBehaviour
             Aluminum.Instance.Timer += Time.deltaTime;
             if (Aluminum.Instance.Timer > Aluminum.Instance.WaitTime)
             {
-                Aluminum.Instance.AddToCirculation(1);
+                Aluminum.Instance.AddToCirculation(Aluminum.Instance.NextWeight.Weight);
                 Aluminum.Instance.Timer = 0f;
                 Aluminum.Instance.Weighing = false;
             }
+        }
+        if (person == null)
+        {
+            person = Person.RemovePerson();
+            GameObject.Find("Card").GetComponentInChildren<Text>().text = person != null ? person.Weight.ToString() : "No Person";
         }
     }
 
     public void Weigh(int typeInt)
     {
-        MineralType type = (MineralType)typeInt ;
-        switch (type)
+        if (person != null)
         {
-            case MineralType.Lead:
-                Lead.Instance.Weighing = true;
-                break;
-            case MineralType.Aluminum:
-                Aluminum.Instance.Weighing = true;
-                break;
+            MineralType type = (MineralType) typeInt;
+            switch (type)
+            {
+                case MineralType.Lead:
+                    if (Lead.Instance.Weighing)
+                    {
+                        break;
+                    }
+                    Lead.Instance.Weighing = true;
+                    Lead.Instance.NextWeight = person;
+                    person = null;
+                    break;
+                case MineralType.Aluminum:
+                    if (Aluminum.Instance.Weighing)
+                    {
+                        break;
+                    }
+                    Aluminum.Instance.Weighing = true;
+                    Aluminum.Instance.NextWeight = person;
+                    person = null;
+                    break;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.People;
 
 namespace Assets.Interfaces
 {
@@ -28,6 +29,8 @@ namespace Assets.Interfaces
         public abstract double PoundsInCirculation { get; set; }
 
         public abstract float WaitTime { get; }
+
+        public virtual Person NextWeight { get; set; }
 
         public virtual float Timer { get; set; }
 
