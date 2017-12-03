@@ -1,4 +1,5 @@
 ﻿using Assets.Minerals;
+using Assets.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,12 +16,20 @@ public class GUIController : MonoBehaviour
     public Text LeadPrice;
     public Text AluminumPrice;
 
+    public Text LeadStock;
+    public Text AluminumStock;
+
+    public string TestText;
 
     // Use this for initialization
     void Start()
     {
         LeadPrice.text = "$ "+ Lead.Instance.CurrentValue.ToString("n2");
         AluminumPrice.text = "$ " + Aluminum.Instance.CurrentValue.ToString("n2");
+
+        LeadStock.text = Player.Instance.Lead.ToString();
+        AluminumStock.text = Player.Instance.Aluminum.ToString();
+
     }
 
     // Update is called once per frame
@@ -31,5 +40,9 @@ public class GUIController : MonoBehaviour
 
         LeadPrice.text = "$ " + Lead.Instance.CurrentValue.ToString("n2");
         AluminumPrice.text = "$ " + Aluminum.Instance.CurrentValue.ToString("n2");
+
+        LeadStock.text = Player.Instance.Lead.ToString();
+        AluminumStock.text = Player.Instance.Aluminum.ToString();
+
     }
 }

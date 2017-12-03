@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Interfaces;
 using Assets.Minerals;
 using Assets.People;
+using Assets.Player;
 using UnityEngine.UI;
 
 public class TimeProcessor : MonoBehaviour
@@ -26,6 +27,7 @@ public class TimeProcessor : MonoBehaviour
             if (Lead.Instance.Timer > Lead.Instance.WaitTime)
             {
                 Lead.Instance.AddToCirculation(Lead.Instance.NextWeight.Weight);
+                Player.Instance.AddMineral(MineralType.Lead, Lead.Instance.NextWeight.Weight);
                 Lead.Instance.Timer = 0f;
                 Lead.Instance.Weighing = false;
             }
@@ -36,6 +38,7 @@ public class TimeProcessor : MonoBehaviour
             if (Aluminum.Instance.Timer > Aluminum.Instance.WaitTime)
             {
                 Aluminum.Instance.AddToCirculation(Aluminum.Instance.NextWeight.Weight);
+                Player.Instance.AddMineral(MineralType.Aluminum, Aluminum.Instance.NextWeight.Weight);
                 Aluminum.Instance.Timer = 0f;
                 Aluminum.Instance.Weighing = false;
             }
