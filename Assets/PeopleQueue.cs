@@ -24,10 +24,6 @@ public class PeopleQueue : MonoBehaviour
 	        if (timer >= timeToPerson)
 	        {
 	            Person.AddPerson(Random.Range(150, 250));
-	            foreach (var person in Person.People)
-	            {
-	                Debug.Log(person.Weight);
-	            }
 	            timer = 0;
 	        }
 	    }
